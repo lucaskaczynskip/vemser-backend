@@ -11,12 +11,10 @@ public class Exercicio5 {
         double hourPrice = sc.nextDouble();
         System.out.print("Qual o número de horas trabalhadas? ");
         double totalHours = sc.nextDouble();
-        System.out.print("O número de horas extra (50%)? ");
-        double extraFiftyPercent = sc.nextDouble();
-        System.out.print("O número de horas extra (100%)? ");
-        double extraOneHundredPercent = sc.nextDouble();
+        System.out.print("O número de horas extra? ");
+        double extraHours = sc.nextDouble();
 
-        double salary = (hourPrice*totalHours) + (extraFiftyPercent*hourPrice*1.5) + (extraOneHundredPercent*hourPrice*2);
+        double salary = (hourPrice*totalHours) + (extraHours*hourPrice*1.5) + (extraHours*hourPrice*2);
 
         System.out.printf("O salário bruto total é de R$ %.2f", salary);
 
