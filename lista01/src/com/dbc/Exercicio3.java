@@ -14,6 +14,7 @@ public class Exercicio3 {
         System.out.print("Valor pago: R$ ");
         amountPaid = sc.nextDouble();
 
+
         sc.close();
 
         if (amountPaid < totalConsumed) {
