@@ -18,9 +18,19 @@ public class Exercicio8 {
 			System.out.print("Média das provas: ");
 			mat[i][1] = sc.nextDouble();
 			sc.nextLine();
+			while (mat[i][1] <= 0 || mat[i][1] >= 10) {
+				System.out.print("Digite uma nota entre 0 e 10: ");
+				mat[i][1] = sc.nextDouble();
+				sc.nextLine();
+			}
 			System.out.print("Média dos trabalhos: ");
 			mat[i][2] = sc.nextDouble();
 			sc.nextLine();
+			while (mat[i][2] <= 0 || mat[i][2] >= 10) {
+				System.out.print("Digite uma nota entre 0 e 10: ");
+				mat[i][2] = sc.nextDouble();
+				sc.nextLine();
+			}
 			mat[i][3] = (mat[i][1]*0.6) + (mat[i][2]*0.4);
 			medF += mat[i][3];
 			System.out.print("Nota final = " + mat[i][3]);
