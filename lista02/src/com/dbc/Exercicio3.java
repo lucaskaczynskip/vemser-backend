@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Exercicio3 {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {	
 		Scanner sc = new Scanner(System.in);
 		
 		int playerCount = 0, age = 0, _age = 0;

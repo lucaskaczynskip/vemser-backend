@@ -1,6 +1,5 @@
 package com.dbc;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Exercicio6 {
@@ -14,39 +13,17 @@ public class Exercicio6 {
         String word = sc.nextLine();
 
         switch (word.toLowerCase()) {
-            case "cachorro":
-                System.out.println("Tradução: Dog");
-                break;
-            case "dog":
-                System.out.println("Tradução: Cachorro");
-                break;
-            case "tempo":
-                System.out.println("Tradução: Time");
-                break;
-            case "time":
-                System.out.println("Tradução: Tempo");
-                break;
-            case "amor":
-                System.out.println("Tradução: Love");
-                break;
-            case "love":
-                System.out.println("Tradução: Amor");
-                break;
-            case "cidade":
-                System.out.println("Tradução: City");
-                break;
-            case "city":
-                System.out.println("Tradução: Cidade");
-                break;
-            case "feliz":
-                System.out.println("Tradução: Happy");
-                break;
-            case "happy":
-                System.out.println("Tradução: Feliz");
-                break;
-            default:
-                System.out.println("Essa palavra não é válida.");
-                break;
+            case "cachorro" -> System.out.println("Tradução: Dog");
+            case "dog" -> System.out.println("Tradução: Cachorro");
+            case "tempo" -> System.out.println("Tradução: Time");
+            case "time" -> System.out.println("Tradução: Tempo");
+            case "amor" -> System.out.println("Tradução: Love");
+            case "love" -> System.out.println("Tradução: Amor");
+            case "cidade" -> System.out.println("Tradução: City");
+            case "city" -> System.out.println("Tradução: Cidade");
+            case "feliz" -> System.out.println("Tradução: Happy");
+            case "happy" -> System.out.println("Tradução: Feliz");
+            default -> System.out.println("Essa palavra não é válida.");
         }
 
 
