@@ -29,18 +29,12 @@ public class ContaCorrente {
 
     public boolean sacar(double valor) {
         if (valor <= retornarSaldoComChequeEspecial() && valor > 0) {
-            if (saldo >= valor) {
-                saldo -= valor;
-            } else {
-                saldo -= valor;
-                chequeEspecial += saldo;
-                saldo = 0;
-            }
+            saldo -= valor;
             return true;
         } else if (valor <= 0) {
             System.out.println("Impossível retirar valores negativos ou nulos.");
         } else {
-            System.out.println("Valor inválido de saque.");
+            System.out.println("Valor inválido.");
         }
         return false;
     }
