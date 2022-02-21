@@ -53,10 +53,11 @@ public class ContaCorrente {
     }
 
     public boolean transferir(ContaCorrente conta, double valor) {
-        if (conta.numeroConta != null) {
-            sacar(valor);
-            conta.depositar(valor);
-            return true;
+        if (conta != null) {
+            if (sacar(valor)) {
+                conta.depositar(valor);
+                return true;
+            }
         }
         return false;
     }
