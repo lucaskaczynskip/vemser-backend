@@ -43,9 +43,8 @@ public class ContaCorrente {
         if (valor > 0) {
             saldo += valor;
             return true;
-        } else {
-            System.out.println("Impossível depositar valores negativos ou nulos.");
         }
+        System.out.println("Impossível depositar valores negativos ou nulos.");
         return false;
     }
 
