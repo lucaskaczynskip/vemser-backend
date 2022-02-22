@@ -11,7 +11,7 @@ public class ContaPoupanca extends Conta implements Impressao {
     }
 
     public void creditarTaxa() {
-        this.setSaldo(this.getSaldo() + (this.getSaldo() * JUROS_MENSAL));
+        this.setSaldo(this.getSaldo() * JUROS_MENSAL);
     }
 
     @Override
