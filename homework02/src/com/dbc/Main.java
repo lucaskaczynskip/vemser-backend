@@ -1,9 +1,6 @@
 package com.dbc;
 
-import com.dbc.entities.Cliente;
-import com.dbc.entities.ContaCorrente;
-import com.dbc.entities.Contato;
-import com.dbc.entities.Endereco;
+import com.dbc.entities.*;
 
 public class Main {
 
@@ -15,10 +12,12 @@ public class Main {
         listaContatosLucas[0] = contatoLucas;
         listaEnderecosLucas[0] = enderecoLucas;
         Cliente lucas = new Cliente("Lucas Kaczynski Primon", "054.108.160-80", listaContatosLucas, listaEnderecosLucas);
-        ContaCorrente contaCorrenteLucas = new ContaCorrente(lucas, "2189", 5, 2500.5, 30);
-
+        ContaCorrente contaCorrenteLucas = new ContaCorrente(lucas, "2189", "5", 2500.5, 30);
         lucas.imprimirCliente();
-        contaCorrenteLucas.imprimirContaCorrente();
+
+        System.out.println("\n -------------- Testes com a Conta Corrente -------------------");
+
+        contaCorrenteLucas.imprimir();
         contaCorrenteLucas.depositar(40);
         System.out.println("\nSaldo total depois do deposito: " + contaCorrenteLucas.retornarSaldoComChequeEspecial());
         contaCorrenteLucas.sacar(1000);
@@ -31,13 +30,23 @@ public class Main {
         listaContatosNicolas[0] = contatoNicolas;
         listaEnderecosNicolas[0] = enderecoNicolas;
         Cliente nicolas = new Cliente("Nicolas Fiedler", "XXX.XXX.XXX-XX", listaContatosNicolas, listaEnderecosNicolas);
-        ContaCorrente contaCorrenteNicolas = new ContaCorrente(nicolas, "3000", 7, 3000, 0);
+        ContaCorrente contaCorrenteNicolas = new ContaCorrente(nicolas, "3000", "7", 3000, 0);
 
-        contaCorrenteNicolas.imprimirContaCorrente();
+        contaCorrenteNicolas.imprimir();
 
         contaCorrenteLucas.transferir(contaCorrenteNicolas, 254.70);
         System.out.println("\nSaldo total da conta do Lucas depois que transferiu: " + contaCorrenteLucas.retornarSaldoComChequeEspecial());
 
-        contaCorrenteNicolas.imprimirContaCorrente();
+        contaCorrenteNicolas.imprimir();
+
+        System.out.println("\n -------------- Testes com a Conta Poupança -------------------");
+
+        ContaPoupanca contaPoupancaLucas = new ContaPoupanca(lucas, "6780542", "05", 1345.00);
+        contaPoupancaLucas.creditarTaxa();
+        contaPoupancaLucas.imprimir();
+
+        contaCorrenteNicolas.transferir(contaPoupancaLucas, 300);
+        System.out.println("\nSaldo total da conta corrente do Nicolas: " + contaCorrenteNicolas.retornarSaldoComChequeEspecial());
+        contaPoupancaLucas.imprimir();
     }
 }
