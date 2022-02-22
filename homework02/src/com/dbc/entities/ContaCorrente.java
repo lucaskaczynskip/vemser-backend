@@ -16,13 +16,13 @@ public class ContaCorrente extends Conta implements Impressao {
     }
 
     public double retornarSaldoComChequeEspecial() {
-        return this.getSaldo() + this.chequeEspecial;
+        return super.getSaldo() + this.chequeEspecial;
     }
 
     @Override
     public boolean sacar(double valor) {
         if (valor > 0 && valor <= this.retornarSaldoComChequeEspecial()) {
-            this.setSaldo(this.getSaldo() - valor);
+            super.setSaldo(super.getSaldo() - valor);
             return true;
         }
         return false;
@@ -31,10 +31,10 @@ public class ContaCorrente extends Conta implements Impressao {
     @Override
     public void imprimir() {
         System.out.println(
-                "\nNome: " + this.getCliente().getNome() +
-                        "\nCPF: " + this.getCliente().getCpf() +
+                "\nNome: " + super.getCliente().getNome() +
+                        "\nCPF: " + super.getCliente().getCpf() +
                         "\n---------------------------------" +
-                        "\nConta: " + this.getNumeroConta() + " - " + this.getAgencia() +
+                        "\nConta: " + super.getNumeroConta() + " - " + super.getAgencia() +
                         "\n---------------------------------" +
                         "\nSaldo total: " + this.retornarSaldoComChequeEspecial()
         );

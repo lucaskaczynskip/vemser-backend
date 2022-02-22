@@ -37,9 +37,7 @@ public class Cliente {
     }
 
     public void setContatos(Contato[] contatos) {
-        for (int i = 0; i < 2; i++) {
-            this.contatos[i] = contatos[i];
-        }
+        this.contatos = contatos;
     }
 
     public Endereco[] getEnderecos() {
@@ -47,9 +45,7 @@ public class Cliente {
     }
 
     public void setEnderecos(Endereco[] enderecos) {
-        for (int i = 0; i < 2; i++) {
-            this.enderecos[i] = enderecos[i];
-        }
+        this.enderecos = enderecos;
     }
 
     public void imprimirContatos() {
