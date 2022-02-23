@@ -6,39 +6,39 @@ import java.util.Queue;
 public class Exercicio3 {
 
     public static void main(String[] args) {
-        Queue<PessoaSenha> lista = new LinkedList<>();
+        Queue<Senha> lista = new LinkedList<>();
 
         for (int i = 0; i < 5; i++) {
-            PessoaSenha pessoa = new PessoaSenha(++PessoaSenha.quantidadePessoas);
-            lista.add(pessoa);
+            Senha senha = new Senha(++Senha.quantidadeSenhas);
+            lista.add(senha);
 
-            System.out.printf("Senha %d retirada.%n", PessoaSenha.quantidadePessoas);
+            System.out.printf("Senha %d retirada.%n", Senha.quantidadeSenhas);
         }
 
         System.out.println("");
 
         for (int i = 0; i < 3; i++) {
-            PessoaSenha pessoa = lista.poll();
-            if (pessoa != null) {
-                System.out.println("Senha " + pessoa.getSenha() + " foi atendida");
+            Senha senha = lista.poll();
+            if (senha != null) {
+                System.out.println("Senha " + senha.getSenha() + " foi atendida");
             }
         }
 
         System.out.println("");
 
         for (int i = 0; i < 3; i++) {
-            PessoaSenha pessoa = new PessoaSenha(++PessoaSenha.quantidadePessoas);
-            lista.add(pessoa);
+            Senha senha = new Senha(++Senha.quantidadeSenhas);
+            lista.add(senha);
 
-            System.out.printf("Senha %d retirada.%n", PessoaSenha.quantidadePessoas);
+            System.out.printf("Senha %d retirada.%n", Senha.quantidadeSenhas);
         }
 
         System.out.println("");
 
         for (int i = 0; i < 3; i++) {
-            PessoaSenha pessoa = lista.poll();
-            if (pessoa != null) {
-                System.out.println("Senha " + pessoa.getSenha() + " foi atendida");
+            Senha senha = lista.poll();
+            if (senha != null) {
+                System.out.println("Senha " + senha.getSenha() + " foi atendida");
             }
         }
 
@@ -47,27 +47,5 @@ public class Exercicio3 {
         System.out.println("Senhas restantes: " + lista);
 
 
-    }
-}
-
-class PessoaSenha {
-    private int senha;
-    public static int quantidadePessoas = 0;
-
-    public PessoaSenha(int senha) {
-        this.setSenha(senha);
-    }
-
-    public int getSenha() {
-        return senha;
-    }
-
-    public void setSenha(int senha) {
-        this.senha = senha;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%d", this.getSenha());
     }
 }
