@@ -1,13 +1,15 @@
 package com.dbc.homework03.entities;
 
+import java.util.ArrayList;
+
 public class Cliente {
 
     private String nome;
     private String cpf;
-    private Contato[] contatos;
-    private Endereco[] enderecos;
+    private ArrayList<Contato> contatos;
+    private ArrayList<Endereco> enderecos;
 
-    public Cliente(String nome, String cpf, Contato[] contatos, Endereco[] enderecos) {
+    public Cliente(String nome, String cpf, ArrayList<Contato> contatos, ArrayList<Endereco> enderecos) {
         this.setNome(nome);
         this.setCpf(cpf);
         this.setContatos(contatos);
@@ -30,19 +32,19 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Contato[] getContatos() {
+    public ArrayList<Contato> getContatos() {
         return contatos;
     }
 
-    public void setContatos(Contato[] contatos) {
+    public void setContatos(ArrayList<Contato> contatos) {
         this.contatos = contatos;
     }
 
-    public Endereco[] getEnderecos() {
+    public ArrayList<Endereco> getEnderecos() {
         return enderecos;
     }
 
-    public void setEnderecos(Endereco[] enderecos) {
+    public void setEnderecos(ArrayList<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
 
