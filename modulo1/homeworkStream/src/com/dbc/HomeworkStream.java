@@ -51,6 +51,7 @@ public class HomeworkStream {
                         lista.stream()
                                 .anyMatch(p -> p.getSalario() > 20000)
         );
+
         //6 - retornar uma lista de todos os ids das pessoas
         System.out.println("\n------------ Ex 6 ------------");
         List<Integer> listaIds =
