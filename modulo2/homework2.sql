@@ -97,5 +97,25 @@ SELECT * FROM ENDERECO WHERE cep LIKE '%0';
 SELECT * FROM ENDERECO WHERE numero BETWEEN 1 AND 100;
 SELECT * FROM ENDERECO WHERE UPPER(logradouro) LIKE 'RUA%' ORDER BY cep DESC; 
 SELECT COUNT(*) FROM ENDERECO;
-SELECT COUNT(*) FROM ENDERECO GROUP BY id_cidade; 
+SELECT COUNT(*) FROM ENDERECO GROUP BY id_cidade;
+
+UPDATE ENDERECO e
+SET 	
+	e.logradouro = 'atualizado',
+	e.complemento = 'novo'
+WHERE 
+	e.id_endereco = 2 OR e.id_endereco = 3;
+
+UPDATE ENDERECO e
+SET e.numero = 99999
+WHERE e.id_endereco = 4; 
+	
+DELETE FROM ENDERECO e WHERE e.id_endereco = (SELECT MAX(id_endereco) FROM ENDERECO); 
+DELETE FROM ENDERECO e WHERE e.numero = 99999;
+DELETE FROM ENDERECO e;
+
+SELECT p.nome
+FROM PESSOA p
+CROSS JOIN (SELECT c.numero FROM CONTATO c);
+
 
