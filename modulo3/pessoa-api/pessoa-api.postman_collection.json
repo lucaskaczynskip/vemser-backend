@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "cee5f2e8-576a-4cf3-8382-38ebb9968ebe",
+		"name": "pessoa-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Pegar pessoa pelo nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pessoa/byname?nome=Raf",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoa",
+								"byname"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Raf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar pessoas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pessoa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar pessoa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pessoa/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar pessoa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Marina Oliveira\",\n    \"dataNascimento\": \"1970-03-30\",\n    \"cpf\": \"12345678912\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pessoa/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoa",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar pessoa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Marina Oliveira\",\n    \"dataNascimento\": \"1970-03-30\",\n    \"cpf\": \"12345678912\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pessoa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contato",
+			"item": [
+				{
+					"name": "Pegar contatos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contato",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contato"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar contatos pela id da pessoa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contato/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contato",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria contato",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero\": \"xxxxxxxxxx\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/contato/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contato",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero\": \"xxxxxxxxxx\",\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/contato/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contato",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar contato",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contato/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contato",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
