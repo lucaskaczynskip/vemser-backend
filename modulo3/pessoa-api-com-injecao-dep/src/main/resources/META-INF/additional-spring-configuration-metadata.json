@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.profile.port",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.profile.port'"
+}]}
