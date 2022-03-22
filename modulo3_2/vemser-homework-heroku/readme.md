@@ -1,0 +1,1 @@
+https://vemser-homework-lkp.herokuapp.com/swagger-ui/
