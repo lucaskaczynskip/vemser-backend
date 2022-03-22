@@ -1,7 +1,6 @@
 package br.com.dbc.pessoa.api.dep.service;
 
-import br.com.dbc.pessoa.api.dep.dto.PersonCreateDTO;
-import br.com.dbc.pessoa.api.dep.dto.PersonDTO;
+import br.com.dbc.pessoa.api.dep.dto.*;
 import br.com.dbc.pessoa.api.dep.entity.PersonEntity;
 import br.com.dbc.pessoa.api.dep.exception.BusinessRuleException;
 import br.com.dbc.pessoa.api.dep.repository.PersonRepository;
@@ -10,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,19 +28,11 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-
     public PersonDTO get(Integer id) throws BusinessRuleException {
         PersonEntity personEntity = repo.findById(id)
                 .orElseThrow(() -> new BusinessRuleException("Pessoa não encontrada"));
         return objectMapper.convertValue(personEntity, PersonDTO.class);
     }
-
-//    public List<PersonDTO> get(String str) {
-//        return repo.getByName(str)
-//                .stream()
-//                .map(p -> objectMapper.convertValue(p, PersonDTO.class))
-//                .collect(Collectors.toList());
-//    }
 
     public PersonDTO add(PersonCreateDTO object) throws BusinessRuleException {
         boolean exists = repo.findAll().stream()
@@ -73,5 +66,72 @@ public class PersonService {
         PersonEntity exists = repo.findById(id).get();
         repo.deleteById(id);
         return objectMapper.convertValue(exists, PersonDTO.class);
+    }
+
+    public List<PersonDTO> getByName(String str) {
+        return repo.findByNameStartingWithIgnoreCase(str)
+                .stream()
+                .map(p -> objectMapper.convertValue(p, PersonDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public PersonDTO getByCpf(String cpf) {
+        PersonEntity person = repo.findByCpf(cpf);
+        return objectMapper.convertValue(person, PersonDTO.class);
+    }
+
+    public List<PersonDTO> getByDateBetween(LocalDate init, LocalDate end) {
+        return repo.findByDateBetween(init, end)
+                .stream()
+                .map(personEntity -> objectMapper.convertValue(personEntity, PersonDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<PersonWithContactsDTO> getWithContact(Integer id) throws BusinessRuleException {
+        if (id == null) {
+            return repo.findAll().stream()
+                    .map(person -> {
+                        PersonWithContactsDTO personDTO = objectMapper.convertValue(person, PersonWithContactsDTO.class);
+                        personDTO.setContacts(person.getContacts().stream()
+                                .map(contact -> objectMapper.convertValue(contact, ContactDTO.class))
+                                .collect(Collectors.toList())
+                        );
+
+                        return personDTO;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        PersonEntity person = repo.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("Pessoa não econtrada."));
+        PersonWithContactsDTO personDTO = objectMapper.convertValue(person, PersonWithContactsDTO.class);
+        personDTO.setContacts(person.getContacts().stream()
+                .map(contact -> objectMapper.convertValue(contact, ContactDTO.class))
+                .collect(Collectors.toList()));
+
+        return List.of(personDTO);
+    }
+
+    public List<PersonWithAddressesDTO> getWithAddresses(Integer id) throws BusinessRuleException {
+        if (id == null) {
+            return repo.findAll().stream()
+                    .map(person -> {
+                        PersonWithAddressesDTO personDTO = objectMapper.convertValue(person, PersonWithAddressesDTO.class);
+                        personDTO.setAddresses(person.getAddresses().stream()
+                                .map(address -> objectMapper.convertValue(address, AddressDTO.class))
+                                .collect(Collectors.toList()));
+                        return personDTO;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        PersonEntity person = repo.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("Pessoa não econtrada."));
+        PersonWithAddressesDTO personDTO = objectMapper.convertValue(person, PersonWithAddressesDTO.class);
+        personDTO.setAddresses(person.getAddresses().stream()
+                .map(address -> objectMapper.convertValue(address, AddressDTO.class))
+                .collect(Collectors.toList()));
+
+        return List.of(personDTO);
     }
 }

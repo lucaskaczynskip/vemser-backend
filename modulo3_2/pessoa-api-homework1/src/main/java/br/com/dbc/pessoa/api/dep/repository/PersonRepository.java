@@ -15,4 +15,7 @@ import java.util.stream.Collectors;
 @Repository
 public interface PersonRepository extends JpaRepository<PersonEntity, Integer> {
 
+    List<PersonEntity> findByNameStartingWithIgnoreCase(String str);
+    PersonEntity findByCpf(String cpf);
+    List<PersonEntity> findByDateBetween(LocalDate init, LocalDate end);
 }

@@ -1,5 +1,6 @@
 package br.com.dbc.pessoa.api.dep.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class ContactEntity {
     @Column(name = "id_contato")
     private Integer idContact;
 
-    @Column(name = "id_pessoa")
+    @Column(name = "id_pessoa", insertable = false, updatable = false)
     private Integer idPerson;
 
     @Enumerated(EnumType.ORDINAL)
@@ -29,4 +30,9 @@ public class ContactEntity {
 
     @Column(name = "descricao")
     private String description;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")
+    private PersonEntity personEntity;
 }

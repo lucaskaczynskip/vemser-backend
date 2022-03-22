@@ -1,8 +1,10 @@
 package br.com.dbc.pessoa.api.dep.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,4 +44,8 @@ public class AddressEntity {
 
     @Column(name = "pais")
     private String country;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "addresses")
+    private Set<PersonEntity> persons;
 }
