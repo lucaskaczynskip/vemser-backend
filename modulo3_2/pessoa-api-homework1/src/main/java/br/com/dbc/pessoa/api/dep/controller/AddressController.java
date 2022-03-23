@@ -3,13 +3,17 @@ package br.com.dbc.pessoa.api.dep.controller;
 import br.com.dbc.pessoa.api.dep.dto.AddressCreateDTO;
 import br.com.dbc.pessoa.api.dep.dto.AddressDTO;
 import br.com.dbc.pessoa.api.dep.dto.PersonDTO;
+import br.com.dbc.pessoa.api.dep.entity.AddressEntity;
+import br.com.dbc.pessoa.api.dep.entity.PersonEntity;
 import br.com.dbc.pessoa.api.dep.exception.BusinessRuleException;
+import br.com.dbc.pessoa.api.dep.repository.AddressRepository;
 import br.com.dbc.pessoa.api.dep.service.AddressService;
 import br.com.dbc.pessoa.api.dep.service.EmailService;
 import br.com.dbc.pessoa.api.dep.service.PersonService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,16 +24,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/endereco")
+@AllArgsConstructor
 public class AddressController {
 
-    @Autowired
-    private AddressService service;
+    private final AddressService service;
+    private final PersonService personService;
+    private final EmailService mailService;
 
-    @Autowired
-    private PersonService personService;
-
-    @Autowired
-    private EmailService mailService;
+    private final AddressRepository repo;
 
     @ApiOperation(value = "Recebe uma lista de endereços")
     @ApiResponses(value = {
@@ -122,5 +124,26 @@ public class AddressController {
 //        mailService.sendEmail(message.toString(), "Endereço removido", "Olá " + person.getName(), person.getEmail());
 
         return ResponseEntity.ok(removed);
+    }
+
+    @GetMapping("/by-country")
+    public List<AddressEntity> findByCountry(@RequestParam("country") String country) {
+        return repo.findByCountry(country);
+    }
+
+    @GetMapping("/by-person")
+    public List<AddressEntity> findByPersonId(@RequestParam("id") Integer id) {
+        return repo.findByPersonId(id);
+    }
+
+    @GetMapping("/by-city-or-country")
+    public List<AddressEntity> findByCountryOrCity(@RequestParam(value = "country", required = false) String country,
+                                                   @RequestParam(value = "city", required = false) String city) {
+        return repo.findByCountryOrCity(country, city);
+    }
+
+    @GetMapping("/where-complement-is-null")
+    public List<AddressEntity> findAddressWhereComplementIsNull() {
+        return repo.findAddressWhereComplementIsNull();
     }
 }

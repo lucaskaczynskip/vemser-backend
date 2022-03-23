@@ -2,30 +2,32 @@ package br.com.dbc.pessoa.api.dep.controller;
 
 import br.com.dbc.pessoa.api.dep.dto.ContactDTO;
 import br.com.dbc.pessoa.api.dep.dto.ContactCreateDTO;
+import br.com.dbc.pessoa.api.dep.entity.ContactEntity;
+import br.com.dbc.pessoa.api.dep.entity.ContactType;
+import br.com.dbc.pessoa.api.dep.entity.PersonEntity;
 import br.com.dbc.pessoa.api.dep.exception.BusinessRuleException;
+import br.com.dbc.pessoa.api.dep.repository.ContactRepository;
 import br.com.dbc.pessoa.api.dep.service.ContactService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/contato")
+@AllArgsConstructor
 public class ContactController {
 
-    @Autowired
-    private ContactService service;
+    private final ContactService service;
+    private final ContactRepository contactRepository;
 
     @ApiOperation(value = "Recebe uma lista de contatos")
     @ApiResponses(value = {
@@ -52,8 +54,8 @@ public class ContactController {
             @ApiResponse(code = 500, message = "Não encontra a pessoa")
     })
     @GetMapping("/{idPerson}/person")
-    public List<ContactDTO> getByPerson(@PathVariable("idPerson") Integer id) throws BusinessRuleException {
-        return service.getByPerson(id);
+    public List<ContactEntity> getByPerson(@PathVariable("idPerson") Integer id) throws BusinessRuleException {
+        return contactRepository.findContactByPersonId(id);
     }
 
 //    @ApiOperation(value = "Cria um novo contato")
@@ -89,5 +91,10 @@ public class ContactController {
     @Validated
     public ContactDTO delete(@Valid @PathVariable("idContact") Integer id) throws BusinessRuleException {
         return service.remove(id);
+    }
+
+    @GetMapping("/by-type")
+    public List<ContactEntity> findByContactType(@RequestParam("type") ContactType type) throws BusinessRuleException {
+        return contactRepository.findByContactType(type);
     }
 }

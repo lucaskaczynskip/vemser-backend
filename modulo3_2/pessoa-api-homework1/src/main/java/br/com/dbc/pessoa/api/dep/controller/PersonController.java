@@ -1,10 +1,9 @@
 package br.com.dbc.pessoa.api.dep.controller;
 
-import br.com.dbc.pessoa.api.dep.dto.PersonCreateDTO;
-import br.com.dbc.pessoa.api.dep.dto.PersonDTO;
-import br.com.dbc.pessoa.api.dep.dto.PersonWithAddressesDTO;
-import br.com.dbc.pessoa.api.dep.dto.PersonWithContactsDTO;
+import br.com.dbc.pessoa.api.dep.dto.*;
+import br.com.dbc.pessoa.api.dep.entity.PersonEntity;
 import br.com.dbc.pessoa.api.dep.exception.BusinessRuleException;
+import br.com.dbc.pessoa.api.dep.repository.PersonRepository;
 import br.com.dbc.pessoa.api.dep.service.EmailService;
 import br.com.dbc.pessoa.api.dep.service.PersonService;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +37,9 @@ public class PersonController {
 
     @Autowired
     private EmailService mailService;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @ApiOperation(value = "Retorna uma lista de pessoas")
     @ApiResponses(value = {
@@ -124,5 +126,26 @@ public class PersonController {
     @GetMapping("/list-with-addresses")
     public List<PersonWithAddressesDTO> getWithAddresses(@RequestParam(value = "id", required = false) Integer id) throws BusinessRuleException {
         return service.getWithAddresses(id);
+    }
+
+    @GetMapping("/where-exists-addresses")
+    public List<PersonEntity> findPersonWhereAddressExists() {
+        return personRepository.findPersonWhereAddressExists();
+    }
+
+    @GetMapping("/where-date")
+    public List<PersonEntity> findByLocalDateBetween(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate init,
+                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+        return personRepository.findByLocalDateBetween(init, end);
+    }
+
+    @GetMapping("/person-complete")
+    public List<PersonCompleteDTO> getCompletePerson(@RequestParam(value = "id", required = false) Integer id) throws BusinessRuleException {
+        return service.getCompletePerson(id);
+    }
+
+    @GetMapping("/person-it-does-not-have-address")
+    public List<PersonEntity> findPersonWhereNoContact() {
+        return personRepository.findPersonWhereNoContact();
     }
 }

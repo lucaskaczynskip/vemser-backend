@@ -134,4 +134,34 @@ public class PersonService {
 
         return List.of(personDTO);
     }
+
+    public List<PersonCompleteDTO> getCompletePerson(Integer id) throws BusinessRuleException {
+        if (id == null) {
+            return repo.findAll().stream()
+                    .map(personEntity -> {
+                        PersonCompleteDTO personDTO = objectMapper.convertValue(personEntity, PersonCompleteDTO.class);
+                        personDTO.setAddresses(personEntity.getAddresses().stream()
+                                .map(address -> objectMapper.convertValue(address, AddressDTO.class))
+                                .collect(Collectors.toList()));
+                        personDTO.setContacts(personEntity.getContacts().stream()
+                                .map(contact -> objectMapper.convertValue(contact, ContactDTO.class))
+                                .collect(Collectors.toList()));
+                        return personDTO;
+                    })
+                    .collect(Collectors.toList());
+        }
+
+        return repo.findById(id).stream()
+                .map(personEntity -> {
+                    PersonCompleteDTO personDTO = objectMapper.convertValue(personEntity, PersonCompleteDTO.class);
+                    personDTO.setAddresses(personEntity.getAddresses().stream()
+                            .map(address -> objectMapper.convertValue(address, AddressDTO.class))
+                            .collect(Collectors.toList()));
+                    personDTO.setContacts(personEntity.getContacts().stream()
+                            .map(contact -> objectMapper.convertValue(contact, ContactDTO.class))
+                            .collect(Collectors.toList()));
+                    return personDTO;
+                })
+                .collect(Collectors.toList());
+    }
 }
