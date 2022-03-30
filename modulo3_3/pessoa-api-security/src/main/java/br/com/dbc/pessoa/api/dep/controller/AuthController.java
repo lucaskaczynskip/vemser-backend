@@ -4,6 +4,9 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +25,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Validated
 public class AuthController {
-	
-	private final LoginService loginService;
+
+	private final AuthenticationManager authenticationManager;
 	private final TokenService tokenService;
-	
+	private final LoginService loginService;
+
 	@PostMapping
-	public String getToken(@RequestBody @Valid LoginDTO login) throws BusinessRuleException {
-		Optional<LoginEntity> searched = loginService.findByLoginAndPassword(login.getLogin(), login.getPassword());
-		
-		if (searched.isPresent()) {
-			return tokenService.getToken(searched.get());
-		}
-		
-		throw new BusinessRuleException("Usuário inválido.");
+	public String auth(@RequestBody @Valid LoginDTO loginDTO) {
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+				new UsernamePasswordAuthenticationToken(
+						loginDTO.getLogin(),
+						loginDTO.getPassword()
+				);
+
+		Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+		String token = tokenService.getToken(authenticate);
+		return token;
+	}
+
+	@PostMapping("/register")
+	public LoginDTO register(@RequestBody @Valid LoginDTO loginDTO) throws BusinessRuleException {
+		return loginService.register(loginDTO);
 	}
 }

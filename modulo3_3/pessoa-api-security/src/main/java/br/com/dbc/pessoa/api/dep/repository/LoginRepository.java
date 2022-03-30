@@ -11,4 +11,5 @@ import br.com.dbc.pessoa.api.dep.entity.LoginEntity;
 public interface LoginRepository extends JpaRepository<LoginEntity, Integer> {
 	
 	Optional<LoginEntity> findByLoginAndPassword(String login, String password);
+	Optional<LoginEntity> findByLogin(String login);
 }
