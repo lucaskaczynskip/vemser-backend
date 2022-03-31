@@ -1,11 +1,6 @@
 package br.com.dbc.pessoa.api.dep.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +9,10 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,9 +33,21 @@ public class LoginEntity implements UserDetails {
 	@Column(name = "password")
 	private String password;
 
+	@ManyToMany
+	@JoinTable(
+			name = "LOGIN_GROUPS",
+			joinColumns = @JoinColumn(name = "id_login"),
+			inverseJoinColumns = @JoinColumn(name = "id_group")
+	)
+	private Set<GroupEntity> groups;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		List<GrantedAuthority> rules = new ArrayList<>();
+		for (GroupEntity groupEntity : groups) {
+			rules.addAll(groupEntity.getRoles());
+		}
+		return rules;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +41,12 @@ public class AuthController {
 
 		Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		String token = tokenService.getToken(authenticate);
+
 		return token;
 	}
 
 	@PostMapping("/register")
-	public LoginDTO register(@RequestBody @Valid LoginDTO loginDTO) throws BusinessRuleException {
-		return loginService.register(loginDTO);
+	public LoginDTO register(@RequestBody @Valid LoginDTO loginDTO, Integer[] ids) throws Exception {
+		return loginService.register(loginDTO, ids);
 	}
 }

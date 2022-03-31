@@ -2,6 +2,7 @@ package br.com.dbc.pessoa.api.dep.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,10 +29,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/auth").permitAll()
-				.antMatchers("/auth/register").permitAll()
+				.antMatchers(HttpMethod.GET, "/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("MARKETING", "ADMIN", "USER")
+				.antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasRole("USER")
+				.antMatchers("/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and().addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
-		;
 	}
 	
 	@Override
