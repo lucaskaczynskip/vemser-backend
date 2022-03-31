@@ -37,7 +37,7 @@ public class LoginService {
 		LoginEntity entity = mapper.convertValue(loginDTO, LoginEntity.class);
 		entity.setPassword(new BCryptPasswordEncoder().encode(entity.getPassword()));
 
-		LoginEntity created = loginRepository.save(entity);
+		this.loginRepository.save(entity);
 
 		return loginDTO;
 	}
