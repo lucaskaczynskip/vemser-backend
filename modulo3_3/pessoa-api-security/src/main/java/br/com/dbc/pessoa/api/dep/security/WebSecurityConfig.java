@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/").permitAll()
 				.antMatchers("/auth").permitAll()
 				.antMatchers(HttpMethod.GET, "/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("MARKETING", "ADMIN", "USER")
-				.antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasRole("USER")
+				.antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and().addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
