@@ -55,3 +55,12 @@ db.pokemon.deleteOne({ "nome": "Gustavo" })
 
 // faz um select com todas as documents do banco
 db.pokemon.find()
+
+db.pokemon.find(
+	{
+		$or: [
+			{ nome: "Arceus" },
+			{ nome: "Bulbasaur" }
+		]
+	}
+)
